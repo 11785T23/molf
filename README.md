@@ -117,12 +117,10 @@ src/
 ## Citation
 
 ```bibtex
-@misc{tang2026molf,
+@article{tang2026molf,
   title={Beyond LoRA vs. Full Fine-Tuning: Gradient-Guided Optimizer Routing for LLM Adaptation},
   author={Tang, Haozhan and Zhu, Xiuqi and Zhang, Xinyin and Li, Boxun and Smith, Virginia and Kuo, Kevin},
-  year={2026},
-  eprint={2605.07111},
-  archivePrefix={arXiv},
-  primaryClass={cs.CL}
+  journal={arXiv preprint arXiv:2605.07111},
+  year={2026}
 }
 ```

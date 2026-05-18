@@ -6,11 +6,6 @@ import gc
 import csv
 import re
 import torch
-# Default CounterFact JSON bundled at src/data/data_source/counterfact.json.
-_DEFAULT_COUNTERFACT_PATH = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "..", "data", "data_source", "counterfact.json"
-)
-_DEFAULT_COUNTERFACT_PATH = os.path.normpath(_DEFAULT_COUNTERFACT_PATH)
 import torch._dynamo
 # Give the compiler a massive cache so it doesn't hit the limit and crash
 torch._dynamo.config.cache_size_limit = 1024
@@ -20,9 +15,12 @@ from datetime import datetime
 from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
 from datasets import load_dataset
-from src.utils.log_utils import parse_model_hyperparams
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
+# CounterFact lives only on the upstream mirror — fetched on first use.
+from src.utils.log_utils import parse_model_hyperparams
+from src.data.fact import _DEFAULT_COUNTERFACT_PATH, _ensure_counterfact_dataset
 
 def make_deterministic(seed: int):
     random.seed(seed)
@@ -300,6 +298,9 @@ def evaluate_fact(
     """
 
     make_deterministic(seed)
+
+    # Fetch upstream CounterFact JSON if not yet cached at this path.
+    dataset = _ensure_counterfact_dataset(dataset)
     print(f"Loading dataset from {dataset}...")
 
     dtype_map = {"bf16": torch.bfloat16, "fp16": torch.float16, "fp32": torch.float32}

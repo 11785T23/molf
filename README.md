@@ -36,7 +36,7 @@ Three benchmarks, three base models — matching the paper's setup:
 |---|---|---|---|
 | **SQL** (Text-to-SQL) | `gretelai/synthetic_text_to_sql` | exact-match accuracy on held-out queries | `src/data/sql.py`, eval in `src/evaluation/eval_helper/eval_sql.py` |
 | **Med** (Medical QA) | `openlifescienceai/medmcqa` | 4-way MCQ accuracy on validation split | `src/data/medmcqa.py`, eval in `eval_medmcqa.py` |
-| **Fact** (CounterFact) | bundled at `src/data/data_source/counterfact.json` | Efficacy Score (Meng et al.) | `src/data/fact.py`, eval in `eval_helper/eval_fact.py` |
+| **Fact** (CounterFact) | downloaded from `rome.baulab.info` on first use, cached at `src/data/data_source/counterfact.json` | Efficacy Score (Meng et al.) | `src/data/fact.py`, eval in `eval_helper/eval_fact.py` |
 
 | Model | HF id |
 |---|---|
@@ -113,6 +113,18 @@ src/
     ├── train.py        # Entry point (draccus-wrapped main)
     └── count_params.py # Parameter-count utility
 ```
+
+## License & Acknowledgments
+
+The MoLF source code in this repository is released under the [Apache License 2.0](LICENSE). See [`NOTICE`](NOTICE) for the full attribution required by the third-party assets we depend on. Summary:
+
+- **Pre-trained models** are pulled from the Hugging Face Hub at runtime and are **not** redistributed by this repo. Each carries its own license and downstream users must comply independently:
+  - `google/gemma-3-1b-pt` — [Gemma Terms of Use](https://ai.google.dev/gemma/terms) (research + downstream fine-tuning, subject to Google's prohibited-use policy)
+  - `Qwen/Qwen2.5-1.5B` — [Apache 2.0](https://huggingface.co/Qwen/Qwen2.5-1.5B/blob/main/LICENSE) (research + commercial)
+  - `Qwen/Qwen2.5-3B` — [Qwen Research License Agreement](https://huggingface.co/Qwen/Qwen2.5-3B/blob/main/LICENSE) (**non-commercial research only**)
+- **Datasets**:
+  - **CounterFact** ([MIT](https://github.com/kmeng01/rome/blob/main/LICENSE), Meng et al., NeurIPS 2022) is fetched from `https://rome.baulab.info/data/dsets/counterfact.json` on first call to `CounterfactDatasetBuilder` / `evaluate_fact` and cached at `src/data/data_source/counterfact.json`. **Not** redistributed by this repo.
+  - **MedMCQA** ([Apache 2.0](https://huggingface.co/datasets/openlifescienceai/medmcqa)) and **Gretel Synthetic Text-to-SQL** ([Apache 2.0](https://huggingface.co/datasets/gretelai/synthetic_text_to_sql)) are pulled from the Hugging Face Hub at training/eval time. **Not** redistributed by this repo.
 
 ## Citation
 

@@ -6,16 +6,40 @@ from transformers import AutoTokenizer, set_seed
 from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import DataLoader
 
-# CounterFact JSON bundled in src/data/data_source/. Override via dataset_path
-# if you have it stored elsewhere.
+# CounterFact is NOT bundled with this repo (the original release lives in the
+# ROME repository under the MIT License). On first call we lazily fetch the
+# canonical JSON from the upstream-published mirror and cache it locally; pass
+# ``dataset_path`` explicitly to use a copy you have elsewhere.
 _DEFAULT_COUNTERFACT_PATH = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "data_source", "counterfact.json"
 )
+# Same URL used by ``dsets/counterfact.py`` in the ROME repository
+# (https://github.com/kmeng01/rome).
+_COUNTERFACT_URL = "https://rome.baulab.info/data/dsets/counterfact.json"
+
+
+def _ensure_counterfact_dataset(path: str) -> str:
+    """Ensure the CounterFact JSON exists at ``path``; fetch on first use.
+
+    The CounterFact dataset (Meng et al., NeurIPS 2022) is the property of the
+    ROME authors and distributed under MIT. We don't redistribute it: this
+    helper downloads it from the original source on the first call and caches
+    the result at ``path`` for subsequent runs. Returns the resolved path.
+    """
+    path = os.fspath(path)
+    if os.path.isfile(path):
+        return path
+    parent = os.path.dirname(path) or "."
+    os.makedirs(parent, exist_ok=True)
+    print(f"[CounterFact] {path} not found — downloading from {_COUNTERFACT_URL}")
+    torch.hub.download_url_to_file(_COUNTERFACT_URL, path)
+    return path
 
 
 class CounterfactDatasetBuilder:
     def __init__(self, tokenizer, dataset_path=_DEFAULT_COUNTERFACT_PATH, num_samples=None):
-        # Load the full dataset
+        # Fetch upstream JSON on first use (no-op if already cached).
+        dataset_path = _ensure_counterfact_dataset(dataset_path)
         full_dataset = load_dataset("json", data_files=dataset_path, split="train")
         
         # Shuffle and select samples

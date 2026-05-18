@@ -1,0 +1,15 @@
+torch<=2.8.0
+transformers<=4.53.0
+accelerate
+datasets>=4.0.0
+peft@git+https://github.com/11785T23/peft.git
+huggingface_hub
+draccus<=0.11.5
+wandb
+tqdm
+sqlparse
+sqlglot
+nltk
+sentencepiece
+# Optional — install only on GPUs that support FlashAttention 2 (Ampere+)
+# flash-attn

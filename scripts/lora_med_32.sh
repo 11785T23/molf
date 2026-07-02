@@ -21,10 +21,10 @@ export HF_HOME=/data/user_data/haozhant/.hf_cache
 export HF_HUB_CACHE="${CTIME_DATA}/hf_cache"
 export HF_DATASETS_CACHE=/data/hf_cache/datasets
 
-cd /home/haozhant/dlora
+cd /home/haozhant/molf
 
 export WANDB_ENTITY="spanningtree"
-export WANDB_PROJECT="dlora"
+export WANDB_PROJECT="molf"
 export WANDB_RUN_TYPE="med_sweep"
 export WANDB_RESUME=allow
 

@@ -97,15 +97,15 @@ class ThroughputVRAMCallback(TrainerCallback):
 
 class BaseTrainer(Trainer):
     """
-    A custom Trainer subclass that can dynamically load and train on either
-    the MATH dataset, the BBQ dataset, or a combination of both.
+    A custom Trainer subclass that loads a base causal LM, optionally injects
+    LoRA adapters, and fine-tunes on one of the supported datasets.
 
     Parameters
     ----------
     config : TrainingConfig
         Hyperparameters and model/dataset paths controlling the training run.
     dataset_type : str, optional
-        Which dataset to load for training.  Accepts ``"sql"``, ``"bbq"``.
+        Which dataset to load for training.  One of ``"sql"``, ``"med"``, ``"fact"``.
     """
 
     def __init__(self, config: TrainingConfig) -> None:

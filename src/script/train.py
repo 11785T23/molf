@@ -1,8 +1,8 @@
 """
-Entry point for finetuning a causal language model on the MATH and BBQ
-datasets using LoRA adapters.  This script parses commandline arguments,
-constructs a ``TrainingConfig`` instance, and invokes the training routine
-implemented in ``trainer.py``.
+Entry point for fine-tuning a causal language model on the SQL, MedMCQA, or
+CounterFact datasets using LoRA / MoLF adapters.  This script parses
+commandline arguments, constructs a ``TrainingConfig`` instance, and invokes
+the training routine implemented in ``trainer.py``.
 """
 
 import draccus, os, json, uuid, shutil

@@ -1,0 +1,11 @@
+/git_command.sh
+/molf.egg-info
+/ckpts
+/logs
+/wandb
+__pycache__/
+/result/
+/data/bold/
+/ttexp2
+/result
+.claude/

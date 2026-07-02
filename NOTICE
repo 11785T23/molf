@@ -1,0 +1,88 @@
+MoLF — Mixture of LoRA and Full Fine-Tuning
+Copyright 2026 The MoLF Authors.
+
+This product includes software developed by the MoLF Authors as the
+reference implementation for the paper "Beyond LoRA vs. Full Fine-Tuning:
+Gradient-Guided Optimizer Routing for LLM Adaptation"
+(https://arxiv.org/abs/2605.07111).
+
+The codebase is distributed under the Apache License, Version 2.0
+(see the LICENSE file at the root of this distribution).
+
+================================================================================
+Third-Party Assets
+================================================================================
+
+This distribution depends on several pre-trained language models and benchmark
+datasets that are published under their own licenses. The licenses for these
+upstream assets remain unchanged; please consult the linked terms before use.
+
+--------------------------------------------------------------------------------
+Pre-trained Language Models (NOT redistributed — fetched at runtime from the
+Hugging Face Hub)
+--------------------------------------------------------------------------------
+
+* Gemma-3-1B-PT (`google/gemma-3-1b-pt`)
+    Released under the Gemma Terms of Use:
+        https://ai.google.dev/gemma/terms
+    Permits research and downstream fine-tuning subject to Google's
+    prohibited-use policy. This project uses the model only for academic
+    fine-tuning experiments and does not redistribute model weights.
+
+* Qwen2.5-1.5B (`Qwen/Qwen2.5-1.5B`)
+    Released under the Apache License 2.0:
+        https://huggingface.co/Qwen/Qwen2.5-1.5B/blob/main/LICENSE
+    Permits research and commercial use with attribution.
+
+* Qwen2.5-3B (`Qwen/Qwen2.5-3B`)
+    Released under the Qwen Research License Agreement:
+        https://huggingface.co/Qwen/Qwen2.5-3B/blob/main/LICENSE
+    Permits non-commercial research use with attribution. Use of this model
+    constitutes acceptance of the Qwen Research License Agreement; downstream
+    users must independently comply with its terms and may NOT use this model
+    for commercial deployment.
+
+--------------------------------------------------------------------------------
+Benchmark Datasets
+--------------------------------------------------------------------------------
+
+* CounterFact (fetched on first use from
+    https://rome.baulab.info/data/dsets/counterfact.json — the canonical URL
+    used by the ROME implementation)
+    Originally released as part of the ROME repository
+    (https://github.com/kmeng01/rome) accompanying:
+        Kevin Meng, David Bau, Alex Andonian, Yonatan Belinkov.
+        "Locating and Editing Factual Associations in GPT."
+        NeurIPS 2022.
+    Distributed under the MIT License. We do NOT redistribute the JSON in
+    this repository; `src/data/fact.py::_ensure_counterfact_dataset` pulls
+    it from the upstream source on the first call and caches the result
+    locally at `src/data/data_source/counterfact.json`.
+
+* MedMCQA (`openlifescienceai/medmcqa`)
+    Released under the Apache License 2.0:
+        https://huggingface.co/datasets/openlifescienceai/medmcqa
+    Pulled from the Hugging Face Hub at training/eval time;
+    NOT redistributed by this repository.
+
+* Gretel Synthetic Text-to-SQL (`gretelai/synthetic_text_to_sql`)
+    Released by Gretel AI under the Apache License 2.0:
+        https://huggingface.co/datasets/gretelai/synthetic_text_to_sql
+    Pulled from the Hugging Face Hub at training/eval time;
+    NOT redistributed by this repository.
+
+All datasets above are used strictly for academic fine-tuning and evaluation
+as intended by their creators. Please cite the original publications for each
+dataset in any downstream work — see the references list of the MoLF paper.
+
+--------------------------------------------------------------------------------
+Runtime Python Dependencies
+--------------------------------------------------------------------------------
+
+The runtime dependencies declared in `pyproject.toml` / `requirements.txt`
+(including `torch`, `transformers`, `peft`, `accelerate`, `datasets`,
+`huggingface_hub`, `draccus`, `wandb`, `tqdm`, `sqlparse`, `sqlglot`, `nltk`,
+and `sentencepiece`) are each released by their respective authors under
+permissive licenses (Apache 2.0, BSD-3-Clause, or MIT) and retain those
+licenses when installed. Please refer to each package's own LICENSE for
+its specific terms.

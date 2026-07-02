@@ -14,7 +14,7 @@ MoLF unifies Full Fine-Tuning (FFT) and Low-Rank Adaptation (LoRA) within a Mixt
 
 > **Branches.** This repo ships the two paper methods on separate branches:
 > - **`main`** (this branch) — the MoLF: FFT + LoRA mixture (§4.1–4.3 of the paper).
-> - **`molf-e`** — MoLF-Efficient (§4.4): base weight frozen, routing over a pair of LoRA experts of potentially different ranks. Check it out with `git checkout molf-e`.
+> - **[`molf-e`](https://github.com/11785T23/molf/tree/molf-e)** — MoLF-Efficient (§4.4): base weight frozen, routing over a pair of LoRA experts of potentially different ranks. Check it out with `git checkout molf-e`.
 
 ## Methods provided
 
@@ -22,7 +22,7 @@ MoLF unifies Full Fine-Tuning (FFT) and Low-Rank Adaptation (LoRA) within a Mixt
 |---|---|
 | `fft` | Full fine-tuning baseline. |
 | `lora` | LoRA baseline (via `peft`). Rank set with `--lora_rank`. |
-| `molf` | MoLF — FFT + LoRA experts routed at the optimizer level. |
+| `molf` | MoLF — FFT + LoRA experts routed at the optimizer level. Set `--molf_fft False` on the [`molf-e`](https://github.com/11785T23/molf/tree/molf-e) branch for the frozen-base, LoRA-only **MoLF-Efficient** variant (§4.4). |
 
 Score functions (`--molf_score_fn`):
 - `true_projected` *(default)* — **EPD** (paper Eq. 10); the score used throughout the main results.

@@ -4,7 +4,7 @@
   <a href="https://arxiv.org/abs/2605.07111v1"><img src="https://img.shields.io/static/v1?label=arXiv&message=MoLF&color=red&logo=arxiv"></a> &ensp;
 </div>
 
-Reference implementation for **"Beyond LoRA vs. Full Fine-Tuning: Gradient-Guided Optimizer Routing for LLM Adaptation"**.
+Reference implementation for **"Beyond LoRA vs. Full Fine-Tuning: Gradient-Guided Optimizer Routing for LLM Adaptation"**, published at NeurIPS 2026.
 
 <p align="center"><img src="asst/molf_abstract.svg" alt="MoLF: FFT-vs-LoRA tension and the MoLF block" width="900"></p>
 
